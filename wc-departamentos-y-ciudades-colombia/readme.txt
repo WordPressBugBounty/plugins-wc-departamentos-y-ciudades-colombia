@@ -5,7 +5,7 @@ Donate link: http://qcode.co/
 Requires at least: 6.0.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,9 @@ Plugin para mostrar el campo departamento y ciudad como listas de selección. Co
 1. Selección de ciudad
 
 == Changelog ==
+
+= 1.2.1 =
+* Fix: se conservan los estados nativos de WooCommerce (EE. UU., etc.) para países sin archivo de estados propio. Antes, la declaración `global $states` dentro de los archivos de estados borraba los estados que WooCommerce ya provee, dejando sin selección de estado a países como Estados Unidos.
 
 = 1.2.0 =
 * Probado en WordPress 6.9 y WooCommerce 10.9.1.

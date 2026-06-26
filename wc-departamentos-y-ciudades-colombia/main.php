@@ -3,13 +3,13 @@
 /**
  * @package         QCode - Departamentos y Ciudades de Colombia para Woocommerce
  * @author          QCode
- * @version         1.2.0
+ * @version         1.2.1
  *
  * @wordpress-plugin
  * Plugin name:     QCode - Departamentos y Ciudades de Colombia para Woocommerce
  * Description:     Plugin para mostrar el campo departamento y ciudad como listas de selección. Compatible con el plugin de Coordinadora.
  * Author:          QCode
- * Version:         1.2.0
+ * Version:         1.2.1
  * Author URI:      https://qcode.co/
  * Text Domain:     wc-qcode-departamentos-y-ciudades-colombia
  * Domain Path:     /languages
@@ -22,7 +22,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('DYCDCPWC_VERSION', '1.2.0');
+define('DYCDCPWC_VERSION', '1.2.1');
 define('DYCDCPWC_TEXTDOMAIN', 'wc-qcode-departamentos-y-ciudades-colombia');
 
 /**

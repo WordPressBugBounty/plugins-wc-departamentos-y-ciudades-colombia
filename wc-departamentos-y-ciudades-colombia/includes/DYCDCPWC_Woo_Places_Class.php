@@ -29,11 +29,22 @@ class DYCDCPWC_Woo_Places_Class
 
   /**
    * Implement WC States
-   * @param mixed $states
+   *
+   * The bundled *-states.php files declare `global $states` and assign
+   * $states[$code]. Because include() runs in this method's scope, declaring
+   * the global here too and seeding it with the incoming WooCommerce states
+   * preserves the built-in states (US, CA, etc.). Otherwise the global
+   * declaration inside the file would rebind $states to an empty global and
+   * wipe every country WooCommerce provides natively.
+   *
+   * @param mixed $wc_states States already registered by WooCommerce.
    * @return mixed
    */
-  public function wc_states($states)
+  public function wc_states($wc_states)
   {
+    global $states;
+    $states = is_array($wc_states) ? $wc_states : array();
+
     $allowed = self::get_store_allowed_countries();
     if (!empty($allowed)) {
       foreach ($allowed as $code => $country) {

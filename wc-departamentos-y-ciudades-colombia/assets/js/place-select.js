@@ -75,8 +75,7 @@
   }
 
   /* City select boxes */
-  var cities_json = wc_city_select_params.cities.replace(/&quot;/g, '"');
-  var cities = $.parseJSON(cities_json);
+  var cities = wc_city_select_params.cities;
   var elBodyDPWoo = $('body');
 
   elBodyDPWoo.on('country_to_state_changing', function (e, country, $container) {
@@ -167,7 +166,11 @@
 
     $citybox.html('<option value="">' + wc_city_select_params.i18n_select_city_text + '</option>' + options);
 
-    if ($('option[value="' + value + '"]', $citybox).length) {
+    var hasValue = $citybox.find('option').filter(function () {
+      return this.value === value;
+    }).length > 0;
+
+    if (hasValue) {
       $citybox.val(value).change();
     } else {
       $citybox.val('').change();

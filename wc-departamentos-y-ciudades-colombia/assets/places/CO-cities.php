@@ -7,6 +7,9 @@
  * @version  1.0.0
  * @license http://opensource.org/licenses/gpl-license.php gnu public license
  */
+
+if (!defined('ABSPATH')) exit;
+
 global $places;
 
 $places['CO'] = array(

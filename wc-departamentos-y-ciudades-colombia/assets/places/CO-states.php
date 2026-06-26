@@ -8,6 +8,8 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
+if (!defined('ABSPATH')) exit;
+
 global $states;
 $states['CO'] = array(
 	'Amazonas' => 'Amazonas',

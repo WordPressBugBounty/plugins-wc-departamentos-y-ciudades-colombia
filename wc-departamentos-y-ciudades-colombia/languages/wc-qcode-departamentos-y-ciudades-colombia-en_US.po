@@ -1,0 +1,24 @@
+# English (US) translation for QCode - Departamentos y Ciudades de Colombia para Woocommerce.
+# Copyright (C) 2026 QCode
+# This file is distributed under the same license as the plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: QCode - Departamentos y Ciudades de Colombia para Woocommerce 1.2.0\n"
+"Report-Msgid-Bugs-To: https://qcode.co/\n"
+"Last-Translator: QCode <andres.jaramillo@qcode.co>\n"
+"Language-Team: English <andres.jaramillo@qcode.co>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: wc-qcode-departamentos-y-ciudades-colombia\n"
+
+#: includes/DYCDCPWC_Woo_Places_Class.php:103
+#: includes/DYCDCPWC_Woo_Places_Class.php:171
+msgid "Select an option&hellip;"
+msgstr "Select an option&hellip;"
+
+#: includes/DYCDCPWC_Woo_Places_Class.php:77
+msgid "required"
+msgstr "required"

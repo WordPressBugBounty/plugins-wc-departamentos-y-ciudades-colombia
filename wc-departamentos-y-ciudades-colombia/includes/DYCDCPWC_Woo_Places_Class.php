@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('ABSPATH')) exit;
+
 class DYCDCPWC_Woo_Places_Class
 {
 
@@ -72,7 +74,7 @@ class DYCDCPWC_Woo_Places_Class
     }
     if ($args['required']) {
       $args['class'][] = 'validate-required';
-      $requried = '<abbr class="required" title="' . esc_attr__('required', 'woocommerce') . '">*</abbr>>';
+      $requried = '<abbr class="required" title="' . esc_attr__('required', 'wc-qcode-departamentos-y-ciudades-colombia') . '">*</abbr>';
     } else {
       $requried = '';
     }
@@ -87,9 +89,9 @@ class DYCDCPWC_Woo_Places_Class
         $args['class'][] = 'validate-' . $validate;
       }
     }
-    $field  = '<p class="form-row ' . esc_attr(implode(' ', $args['class'])) . '" data-priority="' . esc_attr__($args['priority']) . '"  id="' . esc_attr($args['id']) . '_field">';
+    $field  = '<p class="form-row ' . esc_attr(implode(' ', $args['class'])) . '" data-priority="' . esc_attr($args['priority']) . '"  id="' . esc_attr($args['id']) . '_field">';
     if ($args['label']) {
-      $field .= '<label for="' . esc_attr($args['id']) . '" class="' . esc_attr(implode(' ', $args['label_class'])) . '">' . $args['label'] . '</label>';
+      $field .= '<label for="' . esc_attr($args['id']) . '" class="' . esc_attr(implode(' ', $args['label_class'])) . '">' . wp_kses_post($args['label']) . '</label>';
     }
     $country_key = $key == 'billing_city' ? 'billing_country' : 'shipping_country';
     $current_cc  = WC()->checkout->get_value($country_key);
@@ -98,7 +100,7 @@ class DYCDCPWC_Woo_Places_Class
     $places = self::get_places($current_cc);
     if (is_array($places)) {
       $field .= '<select name="' . esc_attr($key) . '" id="' . esc_attr($args['id']) . '" class="city_select ' . esc_attr(implode(' ', $args['input_class'])) . '" ' . implode(' ', $custom_attributes) . ' placeholder="' . esc_attr($args['placeholder']) . '">';
-      $field .= '<option value="">' . __('Select an option&hellip;', 'woocommerce') . '</option>';
+      $field .= '<option value="">' . __('Select an option&hellip;', 'wc-qcode-departamentos-y-ciudades-colombia') . '</option>';
       if ($current_sc) {
 
         if (isset($places[ucfirst(strtolower($current_sc))])) {
@@ -108,7 +110,9 @@ class DYCDCPWC_Woo_Places_Class
         }
 
       } else if (is_array($places) &&  isset($places[0])) {
-        // $dropdown_places = array_reduce( $places, 'array_merge', array() );
+        // Country without states: flat city list. Assign before sorting to
+        // avoid operating on an undefined variable (PHP 8 warning).
+        $dropdown_places = $places;
         sort($dropdown_places);
       } else {
         $dropdown_places = $places;
@@ -116,7 +120,7 @@ class DYCDCPWC_Woo_Places_Class
       if (is_array($dropdown_places)) {
         foreach ($dropdown_places as $places_key => $city_name) {
           if (!is_array($city_name)) {
-            $field .= '<option value="' . esc_attr($places_key) . '" ' . selected($value, $places_key, false) . '>' . $city_name . '</option>';
+            $field .= '<option value="' . esc_attr($places_key) . '" ' . selected($value, $places_key, false) . '>' . esc_html($city_name) . '</option>';
           }
         }
       }
@@ -125,7 +129,7 @@ class DYCDCPWC_Woo_Places_Class
       $field .= '<input type="text" class="input-text ' . esc_attr(implode(' ', $args['input_class'])) . '" value="' . esc_attr($value) . '"  placeholder="' . esc_attr($args['placeholder']) . '" name="' . esc_attr($key) . '" id="' . esc_attr($args['id']) . '" ' . implode(' ', $custom_attributes) . ' />';
     }
     if ($args['description']) {
-      $field .= '<span class="description">' . esc_attr($args['description']) . '</span>';
+      $field .= '<span class="description">' . esc_html($args['description']) . '</span>';
     }
     $field .= '</p>' . $after;
     return $field;
@@ -162,12 +166,17 @@ class DYCDCPWC_Woo_Places_Class
   {
     if (is_cart() || is_checkout() || is_wc_endpoint_url('edit-address')) {
       $city_select_path = self::get_plugin_url() . 'assets/js/place-select.js';
-      wp_enqueue_script('wc-city-select', $city_select_path, array('jquery', 'woocommerce'), null, true);
-      $places = json_encode(self::get_places());
-      wp_localize_script('wc-city-select', 'wc_city_select_params', array(
-        'cities' => $places,
-        'i18n_select_city_text' => esc_attr__('Select an option&hellip;', 'woocommerce')
-      ));
+      $version = defined('DYCDCPWC_VERSION') ? DYCDCPWC_VERSION : false;
+      wp_enqueue_script('wc-city-select', $city_select_path, array('jquery', 'woocommerce'), $version, true);
+      $params = array(
+        'cities' => self::get_places(),
+        'i18n_select_city_text' => esc_attr__('Select an option&hellip;', 'wc-qcode-departamentos-y-ciudades-colombia')
+      );
+      wp_add_inline_script(
+        'wc-city-select',
+        'var wc_city_select_params = ' . wp_json_encode($params) . ';',
+        'before'
+      );
     }
   }
 

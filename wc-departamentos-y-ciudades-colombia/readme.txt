@@ -3,9 +3,9 @@ Contributors: qcode1
 Tags: ciudades de colombia, coordinadora, envíos colombia
 Donate link: http://qcode.co/
 Requires at least: 6.0.0
-Tested up to: 6.6.2
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.20
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,8 +25,20 @@ Plugin para mostrar el campo departamento y ciudad como listas de selección. Co
 
 == Changelog ==
 
+= 1.2.0 =
+* Probado en WordPress 6.9 y WooCommerce 10.9.1.
+* Seguridad: se escapan las salidas del campo ciudad (esc_html) y la etiqueta (wp_kses_post).
+* Fix: se corrige el guardado de la ciudad del pedido (se reemplaza el recorte de 11 caracteres por una expresión regular que elimina solo el sufijo " (CÓDIGO)").
+* Mejora: detección de WooCommerce compatible con instalaciones multisitio / activación en red.
+* Mejora: versionado del script para cache-busting y cabeceras de plugin (Text Domain, Requires PHP, Requires Plugins).
+* Nota: se mantiene el formato del value del select "NOMBRE (CÓDIGO)" por compatibilidad con Coordinadora.
+
+= 1.1.19 =
+* Se actualiza la función elBodyDPWoo.on('change') en el archivo place-select.js.
+
 = 1.0.16 =
-*Se soluciona el error Undefined array key "Co-ant" en versiones de php > 8
+* Se soluciona el error Undefined array key "Co-ant" en versiones de php > 8.
+
 = 1.0.14 =
 * Se reversa a mayúscula el nombre de las ciudades por incompatibilidad con la integración de Coordinadora.
 
@@ -60,6 +72,3 @@ Plugin para mostrar el campo departamento y ciudad como listas de selección. Co
 
 = 1.0.0 =
 * Primera versión.
-
-= 1.1.19 =
-* Se Actualiza la Funcion elBodyDPWoo.on( 'change') en el archivo place-select.js
